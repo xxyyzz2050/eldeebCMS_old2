@@ -6,18 +6,17 @@
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <!--
-      <script>
-      //check polyfills.ts
-        var global = global || window;
-        //var Buffer = Buffer || []; //Buffer is not a constructor
-        //global.Buffer = global.Buffer || require("buffer").Buffer;
-        var process = process || {
-          env: { DEBUG: undefined },
-          version: []
-        };
-      </script>
-    -->
+
+    <script>
+      // a workaround for ReferenceError: ReferenceError: global is not defined,
+      // https://stackoverflow.com/a/50377270 and https://stackoverflow.com/a/50356546
+      //don't put 'Buffer', see polyfills.ts
+      var global = global || window;
+      var process = process || {
+        env: { DEBUG: undefined },
+        version: []
+      };
+    </script>
   </head>
   <body>
     <app-root></app-root>
