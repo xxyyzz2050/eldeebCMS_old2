@@ -1,0 +1,52 @@
+<h3>mat-form-field</h3>
+<p>- appearance="legacy (default) | stadard | fill | outline"</p>
+<p>- adding 'required' will add '*' to the floating label</p>
+<p>- color= primary (default) | accent | warn</p>
+
+<mat-form-field appearance="outline" style="width:500px" color="primary">
+  <mat-label>email</mat-label>
+  <input matInput placeholder="Placeholder" required [formControl]="email" />
+  <mat-icon matPrefix>sentiment_very_satisfied</mat-icon>
+  <mat-icon matSuffix>visibility</mat-icon>
+  <mat-hint>Hint (start)</mat-hint>
+  <mat-hint align="end">Hint (end)</mat-hint>
+  <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error>
+</mat-form-field>
+<br />
+
+<h3>checkbox</h3>
+<mat-checkbox>Check me!</mat-checkbox><br />
+<mat-checkbox labelPosition="before">labelPosition: before</mat-checkbox><br />
+<mat-checkbox indeterminate="true" color="primary">indeterminate</mat-checkbox
+><br />
+
+<h3>Date picker</h3>
+<mat-form-field>
+  <input matInput [matDatepicker]="myDatepicker" />
+  <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+  <mat-datepicker #myDatepicker></mat-datepicker>
+</mat-form-field>
+<br />
+
+<hr />
+
+<h3>autocomplete</h3>
+<form>
+  <mat-form-field>
+    <input
+      type="text"
+      placeholder="US State"
+      aria-label="Number"
+      matInput
+      [formControl]="myControl"
+      [matAutocomplete]="auto"
+    />
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let state of states" [value]="state.value">
+        {{ state.display }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+
+<hr />

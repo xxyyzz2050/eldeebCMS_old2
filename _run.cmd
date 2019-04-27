@@ -49,9 +49,9 @@ GOTO End
 
 :install
 ECHO installing packages....
-npm i
+call npm i
 cd projects/eldeeb
-npm i
+call npm i
 :: peerDependencies for all libraries are included in dependencies of workspace's package.json, so we don't need to manually add them here
 GOTO End
 
