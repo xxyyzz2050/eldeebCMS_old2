@@ -5,13 +5,15 @@ import { AppComponent } from "./app.component";
 import { ErrorComponent } from "./error/error.component";
 import { EldeebModule } from "eldeeb";
 import { EldeebService } from "eldeeb";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [AppComponent, ErrorComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: "serverApp" }),
     AppRoutingModule,
-    EldeebModule
+    EldeebModule,
+    BrowserAnimationsModule
   ],
   providers: [EldeebService],
   bootstrap: [AppComponent]
