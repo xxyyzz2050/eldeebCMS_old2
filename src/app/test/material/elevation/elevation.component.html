@@ -1,0 +1,14 @@
+<h3>Elevation</h3>
+<a routerLink="/test/material">back to material design</a><br />
+<a href="https://material.angular.io/guide/elevation" target="_blank"
+  >reference</a
+>
+
+<div
+  class="elevation"
+  [class.mat-elevation-z2]="!isActive"
+  [class.mat-elevation-z8]="isActive"
+>
+  Toggle elevation
+</div>
+<button mat-button (click)="isActive = !isActive">Toggle Elevation</button>

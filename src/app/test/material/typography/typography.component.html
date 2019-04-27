@@ -1,0 +1,25 @@
+<h1>Typography</h1>
+<a routerLink="/test/material">back to material design</a><br />
+<a href="https://material.angular.io/guide/typography" target="_blank"
+  >reference</a
+>
+
+<!--
+  By default, Angular Material applies no global styles to native elements.
+-->
+<h1>global h1</h1>
+<p>
+  global h1 will not follow MD, either apply .mat-display-1 or put it inside
+  .mat-typography
+</p>
+
+<!-- Applying the mat-tyography class adds styles for native elements. -->
+<section class="mat-typography">
+  <h1>
+    h1 inside .mat-typography element, will automatically follow Material design
+    typography
+  </h1>
+</section>
+
+<h1 class="mat-display-1">h1 element with .mat-display-1 class</h1>
+<h2 class="mat-h2">h2 element with .mat-h2 class</h2>
