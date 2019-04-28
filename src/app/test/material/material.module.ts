@@ -20,7 +20,11 @@ import {
   MatDatepickerModule,
   MatSelectModule,
   MatSliderModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatMenuModule,
+  MatToolbarModule,
+  MatSidenavModule,
+  MatRadioModule
 } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
@@ -48,7 +52,11 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     MatDatepickerModule,
     MatSelectModule,
     MatSliderModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatRadioModule
   ]
 })
 export class MaterialModule {}
