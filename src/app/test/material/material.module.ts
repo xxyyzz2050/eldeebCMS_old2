@@ -26,7 +26,13 @@ import {
   MatSidenavModule,
   MatRadioModule,
   MatCardModule,
-  MatButtonModule
+  MatButtonModule,
+  MatExpansionModule,
+  MatListModule,
+  MatGridListModule,
+  MatStepperModule,
+  MatTabsModule,
+  MatTreeModule
 } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
@@ -60,7 +66,13 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     MatSidenavModule,
     MatRadioModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatExpansionModule,
+    MatListModule,
+    MatGridListModule,
+    MatStepperModule,
+    MatTabsModule,
+    MatTreeModule
   ]
 })
 export class MaterialModule {}

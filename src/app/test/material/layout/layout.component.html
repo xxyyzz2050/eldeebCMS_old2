@@ -30,3 +30,265 @@
     <button mat-raised-button color="warn">Subscribe</button>
   </mat-card-actions>
 </mat-card>
+<hr />
+<h3>Expansion panel & accordion</h3>
+
+<mat-accordion multi="false">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Title </mat-panel-title>
+      <mat-panel-description>
+        This is a summary of the content<br />
+        This is a summary of the content<br />
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    content details<br />
+    content details<br />
+    content details<br />
+    content details<br />
+    content details<br />
+    <mat-action-row> <button mat-button>Share</button> </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Title2 </mat-panel-title>
+    </mat-expansion-panel-header>
+    content2 details<br />
+    content2 details<br />
+    content2 details<br />
+    <mat-action-row> <button mat-button>Share</button> </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<h3>list</h3>
+<mat-list>
+  <mat-list-item>Item 1</mat-list-item>
+  <mat-list-item>Item 2</mat-list-item>
+  <mat-list-item>Item 3</mat-list-item>
+  <a mat-list-item href="#"> Link 1 </a> <a mat-list-item href="#"> Link 2 </a>
+</mat-list>
+
+<p>for dense lists, add dense to shrink the font size and height of the list</p>
+<mat-list dense>
+  <mat-list-item>Item 1</mat-list-item>
+  <mat-list-item>Item 2</mat-list-item>
+  <mat-list-item>Item 3</mat-list-item>
+  <a mat-list-item href="#"> Link 1 </a> <a mat-list-item href="#"> Link 2 </a>
+</mat-list>
+
+<p>for links, use mat-nav-list, mat-list-item here is optional :</p>
+<mat-nav-list>
+  <a mat-list-item href="#"> Link 1 </a> <a mat-list-item href="#"> Link 2 </a>
+</mat-nav-list>
+
+<p>every item contains tow links, put them inside mat-list-item:</p>
+<mat-nav-list>
+  <mat-list-item>
+    <a mat-list-item href="#"> Link 1 </a>
+    <a mat-list-item href="#"> Link 2 </a>
+  </mat-list-item>
+</mat-nav-list>
+
+<p>every item contains more than one element (a link and a btn):</p>
+
+<mat-nav-list>
+  <mat-list-item>
+    <a matLine href="#"> Link 1</a>
+    <mat-icon>info</mat-icon>
+  </mat-list-item>
+
+  <mat-list-item>
+    <a href="#"> Link 2 (without matLine)</a>
+    <mat-icon>info</mat-icon>
+  </mat-list-item>
+
+  <mat-list-item>
+    <a matLine href="#"> Link 3 (use mat-icon-button with btns)</a>
+    <button mat-icon-button><mat-icon>info</mat-icon></button>
+  </mat-list-item>
+
+  <mat-list-item>
+    <a matLine href="#"> Link 4 (without mat-icon-button)</a>
+    <button><mat-icon>info</mat-icon></button>
+  </mat-list-item>
+
+  <mat-list-item>
+    <a matLine href="#"> Link 5 (3 items, added matLine to first one)</a>
+    <mat-icon>info</mat-icon>
+    <mat-icon>star</mat-icon>
+  </mat-list-item>
+</mat-nav-list>
+
+<p>for buttons, use mat-action-list:</p>
+<mat-action-list>
+  <button mat-list-item>Save</button> <button mat-list-item>Undo</button>
+</mat-action-list>
+
+<p>buttons without mat-action-list:</p>
+<mat-list-item>
+  <button mat-list-item>Save</button> <button mat-list-item>Undo</button>
+</mat-list-item>
+
+<p>
+  for checkboxes, use mat-selection-list:<br />
+  it will automatically add a checkbox for each item, and we can react with it
+  (ex: selectedOptions)
+</p>
+<mat-selection-list #select>
+  <mat-list-option> item 1</mat-list-option>
+  <mat-list-option> item 2</mat-list-option>
+  <mat-list-option> item 3</mat-list-option>
+</mat-selection-list>
+Options selected: {{ select.selectedOptions.selected.length }}
+
+<p>
+  To add an icon to your list item, use the matListIcon:<br />
+  we added matLine to the second item 'p' because we need it to br rendered in a
+  new line
+</p>
+<mat-list>
+  <mat-list-item>
+    <mat-icon matListIcon>email</mat-icon>
+    <h3 matLine>from: ....</h3>
+    <p matLine><span>subject</span> <span> -- message content </span></p>
+  </mat-list-item>
+</mat-list>
+<p>
+  avatar:<br />
+  to include an avatar, add matListAvatar to avatar img tag
+</p>
+<mat-list>
+  <mat-list-item>
+    <img
+      matListAvatar
+      src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+    />
+    <h3 matLine>from</h3>
+    <p matLine>
+      <span>subject</span> <span class="demo-2"> -- message content </span>
+    </p>
+  </mat-list-item>
+</mat-list>
+
+<p>
+  list sections:<br />
+  add section head by matSubheader, and use mat-divider between sections
+</p>
+<mat-list>
+  <h3 matSubheader>Folders</h3>
+  <mat-list-item>
+    <mat-icon matListIcon>folder</mat-icon>
+    <h4 matLine>folder name</h4>
+    <p matLine>updated: 1/1/2000</p>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <h3 matSubheader>Notes</h3>
+  <mat-list-item>
+    <mat-icon matListIcon>note</mat-icon>
+    <h4 matLine>note name</h4>
+    <p matLine>updated: 1/1/2000</p>
+  </mat-list-item>
+</mat-list>
+
+<h3>Grid list</h3>
+<mat-grid-list cols="4" rowHeight="100px">
+  <mat-grid-tile
+    *ngFor="let tile of gridListTiles"
+    [colspan]="tile.cols"
+    [rowspan]="tile.rows"
+    [style.background]="tile.color"
+  >
+    {{ tile.text }}
+  </mat-grid-tile>
+</mat-grid-list>
+
+<p>with headers & footers:</p>
+<mat-grid-list cols="4" rowHeight="100px">
+  <mat-grid-tile
+    *ngFor="let tile of gridListTiles"
+    [colspan]="tile.cols"
+    [rowspan]="tile.rows"
+    [style.background]="tile.color"
+  >
+    {{ tile.text }}
+    <mat-grid-tile-header>header</mat-grid-tile-header>
+    <mat-grid-tile-footer>Footer</mat-grid-tile-footer>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<h3>stepper</h3>
+<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+  {{ !isLinear ? "Enable linear mode" : "Disable linear mode" }}
+</button>
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Fill out your name</ng-template>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Last name, First name"
+          formControlName="firstCtrl"
+          required
+        />
+      </mat-form-field>
+      <div><button mat-button matStepperNext>Next</button></div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Fill out your address</ng-template>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Address"
+          formControlName="secondCtrl"
+          required
+        />
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    You are now done.
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+
+<h3>Tabs</h3>
+<mat-tab-group animationDuration="2000ms">
+  <mat-tab label="First"> Content 1 </mat-tab>
+  <mat-tab label="Second"> Content 2 </mat-tab>
+  <mat-tab label="Third"> Content 3 </mat-tab>
+</mat-tab-group>
+
+<h3>Tree</h3>
+<p>Flat tree:</p>
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+  <!-- This is the tree node template for leaf nodes -->
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+    <!-- use a disabled button to provide padding for tree leaf -->
+    <button mat-icon-button disabled></button> {{ node.name }}
+  </mat-tree-node>
+  <!-- This is the tree node template for expandable nodes -->
+  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+    <button
+      mat-icon-button
+      matTreeNodeToggle
+      [attr.aria-label]="'toggle ' + node.name"
+    >
+      <mat-icon class="mat-icon-rtl-mirror">
+        {{ treeControl.isExpanded(node) ? "expand_more" : "chevron_right" }}
+      </mat-icon>
+    </button>
+    {{ node.name }}
+  </mat-tree-node> </mat-tree
+>>
