@@ -32,7 +32,9 @@ IF ERRORLEVEL 1 GOTO build
 ECHO.
 
 :build
-ECHO building libraries
+ECHO building libraries....
+ECHO.
+ECHO if you won't make changes to any library, you can close the cmd window after finishing the compiling process.
 start ng build eldeeb --watch
 :: start will open the command in a new cmd window, to enable --watch mode
 pause
