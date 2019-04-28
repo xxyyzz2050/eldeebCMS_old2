@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, Validators } from "@angular/forms";
+import { Observable } from "rxjs";
+import { map, startWith } from "rxjs/operators";
 import {
   MatDatepicker,
   DateAdapter,
@@ -44,8 +46,6 @@ export const MY_FORMATS = {
 })
 export class FormsComponent implements OnInit {
   title = "materialApp";
-  myControl = new FormControl();
-  states;
 
   //for input
   email = new FormControl("", [Validators.required, Validators.email]);
@@ -64,26 +64,17 @@ export class FormsComponent implements OnInit {
     "Tomato"
   ];
 
+  //for autocomplete
+  myControl = new FormControl();
+  options: string[] = ["One", "Two", "Three"];
+  filteredOptions: Observable<string[]>;
+
   constructor() {}
   ngOnInit() {
-    this.loadStates();
-  }
-  //build list of states as map of key-value pairs
-  loadStates() {
-    var allStates =
-      "Alabama, Alaska, Arizona, Arkansas, California, Colorado, Connecticut, Delaware,\
-          Florida, Georgia, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana,\
-          Maine, Maryland, Massachusetts, Michigan, Minnesota, Mississippi, Missouri, Montana,\
-          Nebraska, Nevada, New Hampshire, New Jersey, New Mexico, New York, North Carolina,\
-          North Dakota, Ohio, Oklahoma, Oregon, Pennsylvania, Rhode Island, South Carolina,\
-          South Dakota, Tennessee, Texas, Utah, Vermont, Virginia, Washington, West Virginia,\
-          Wisconsin, Wyoming";
-    this.states = allStates.split(/, +/g).map(function(state) {
-      return {
-        value: state.toUpperCase(),
-        display: state
-      };
-    });
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(""),
+      map(value => this._filter(value))
+    );
   }
 
   getErrorMessage(): string {
@@ -92,5 +83,13 @@ export class FormsComponent implements OnInit {
       : this.email.hasError("email")
       ? "Not a valid email"
       : "";
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option =>
+      option.toLowerCase().includes(filterValue)
+    );
   }
 }
