@@ -24,7 +24,9 @@ import {
   MatMenuModule,
   MatToolbarModule,
   MatSidenavModule,
-  MatRadioModule
+  MatRadioModule,
+  MatCardModule,
+  MatButtonModule
 } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
@@ -56,7 +58,9 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     MatMenuModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatRadioModule
+    MatRadioModule,
+    MatCardModule,
+    MatButtonModule
   ]
 })
 export class MaterialModule {}
