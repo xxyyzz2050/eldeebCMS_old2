@@ -46,8 +46,24 @@ export class FormsComponent implements OnInit {
   title = "materialApp";
   myControl = new FormControl();
   states;
+
+  //for input
   email = new FormControl("", [Validators.required, Validators.email]);
+
+  //for date picker
   date = new FormControl(moment([2017, 0, 1]));
+
+  //for select
+  toppings = new FormControl();
+  toppingList: string[] = [
+    "Extra cheese",
+    "Mushroom",
+    "Onion",
+    "Pepperoni",
+    "Sausage",
+    "Tomato"
+  ];
+
   constructor() {}
   ngOnInit() {
     this.loadStates();

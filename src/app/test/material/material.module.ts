@@ -17,7 +17,10 @@ import {
   MatInputModule,
   MatIconModule,
   MatCheckboxModule,
-  MatDatepickerModule
+  MatDatepickerModule,
+  MatSelectModule,
+  MatSliderModule,
+  MatSlideToggleModule
 } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
@@ -36,14 +39,16 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
   imports: [
     CommonModule,
     MaterialRoutingModule,
-
     MatAutocompleteModule,
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
     MatCheckboxModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatSelectModule,
+    MatSliderModule,
+    MatSlideToggleModule
   ]
 })
 export class MaterialModule {}

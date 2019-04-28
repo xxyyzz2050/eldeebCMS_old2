@@ -25,6 +25,26 @@ const routes: Routes = [
     component: FormsComponent
   },
   {
+    path: "navigation",
+    component: NavigationComponent
+  },
+  {
+    path: "layout",
+    component: LayoutComponent
+  },
+  {
+    path: "buttons",
+    component: ButtonsComponent
+  },
+  {
+    path: "modals",
+    component: ModalsComponent
+  },
+  {
+    path: "tables",
+    component: TablesComponent
+  },
+  {
     path: "",
     component: MaterialComponent
   }
