@@ -6,7 +6,8 @@ import { ErrorComponent } from "./error/error.component";
 import { EldeebModule } from "eldeeb";
 import { EldeebService } from "eldeeb";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-
+import { GestureConfig } from "@angular/material";
+import { HAMMER_GESTURE_CONFIG } from "@angular/platform-browser";
 @NgModule({
   declarations: [AppComponent, ErrorComponent],
   imports: [
@@ -15,7 +16,10 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     EldeebModule,
     BrowserAnimationsModule
   ],
-  providers: [EldeebService],
+  providers: [
+    EldeebService,
+    { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
