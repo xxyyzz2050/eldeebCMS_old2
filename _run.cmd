@@ -52,8 +52,10 @@ ECHO installing packages....
 call npm i
 cd projects/eldeeb
 call npm i
+cd ../../
 :: peerDependencies for all libraries are included in dependencies of workspace's package.json, so we don't need to manually add them here
-GOTO End
+:: also build the libraries,todo: no need for --watch here
+GOTO build
 
 :babel
 ECHO running babel transpiler....
