@@ -26,7 +26,7 @@ IF %task% == 1 GOTO run
 echo %task%
 pause
 :run
-CHOICE /T 5 /D Y /M "build libraries?"
+CHOICE /T 5 /D N /M "build libraries? if you didn't changes to any library, you don't need to build them"
 IF ERRORLEVEL 2 GOTO start
 IF ERRORLEVEL 1 GOTO build
 ECHO.
