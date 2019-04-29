@@ -11,6 +11,10 @@ import { LayoutComponent } from "./layout/layout.component";
 import { ButtonsComponent } from "./buttons/buttons.component";
 import { ModalsComponent } from "./modals/modals.component";
 import { TablesComponent } from "./tables/tables.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BottomSheetComponent } from "./modals/bottom-sheet/bottom-sheet.component";
+import { DialogComponent } from "./modals/dialog/dialog.component";
+import { SnackBarComponent } from "./modals/snack-bar/snack-bar.component";
 
 import {
   MatAutocompleteModule,
@@ -38,9 +42,12 @@ import {
   MatChipsModule,
   MatProgressSpinnerModule,
   MatProgressBarModule,
-  MatRippleModule
+  MatRippleModule,
+  MatBottomSheetModule,
+  MatDialogModule,
+  MatSnackBarModule,
+  MatTooltipModule
 } from "@angular/material";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -52,7 +59,10 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     LayoutComponent,
     ButtonsComponent,
     ModalsComponent,
-    TablesComponent
+    TablesComponent,
+    BottomSheetComponent,
+    DialogComponent,
+    SnackBarComponent
   ],
   imports: [
     CommonModule,
@@ -84,7 +94,12 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     MatChipsModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    MatRippleModule
-  ]
+    MatRippleModule,
+    MatBottomSheetModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    MatTooltipModule
+  ],
+  entryComponents: [BottomSheetComponent, DialogComponent, SnackBarComponent] // to avoid error: 'No component factory found for ...'; dynamically loaded components must be included in entryComponents; https://material.angular.io/components/bottom-sheet ; https://stackoverflow.com/a/53634939/9474643
 })
 export class MaterialModule {}

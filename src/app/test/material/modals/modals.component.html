@@ -1,3 +1,22 @@
-<p>
-  modals works!
-</p>
+<h3>bottomSheet</h3>
+<button mat-raised-button (click)="openBottomSheet()">Open file</button>
+<hr />
+
+<h3>Dialog</h3>
+<mat-form-field>
+  <input matInput [(ngModel)]="name" placeholder="What's your name?" />
+</mat-form-field>
+<br />
+<button mat-raised-button (click)="openDialog()">Pick one</button><br />
+You selected :{{ animal }}
+<hr />
+
+<h3>snack bar</h3>
+<button mat-button (click)="openSnackBar()">Show notification</button>
+<button mat-button (click)="openSnackBarComponent()">
+  open snackBar component
+</button>
+
+<hr />
+<h3>tooltips</h3>
+<button mat-raised-button matTooltip="Info about the action">hover here</button>
