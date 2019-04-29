@@ -46,7 +46,10 @@ import {
   MatBottomSheetModule,
   MatDialogModule,
   MatSnackBarModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatPaginatorModule,
+  MatSortModule,
+  MatTableModule
 } from "@angular/material";
 
 @NgModule({
@@ -98,7 +101,10 @@ import {
     MatBottomSheetModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule
   ],
   entryComponents: [BottomSheetComponent, DialogComponent, SnackBarComponent] // to avoid error: 'No component factory found for ...'; dynamically loaded components must be included in entryComponents; https://material.angular.io/components/bottom-sheet ; https://stackoverflow.com/a/53634939/9474643
 })
