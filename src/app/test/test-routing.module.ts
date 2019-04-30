@@ -7,6 +7,10 @@ const routes: Routes = [
     path: "material",
     loadChildren: "./material/material.module#MaterialModule"
   },
+  {
+    path: "formly",
+    loadChildren: "./formly/formly.module#FormlyExampleModule"
+  },
   { path: "", component: IndexComponent }
 ];
 
