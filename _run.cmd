@@ -11,11 +11,13 @@ ECHO 2. run (ssr)
 ECHO 3. babel
 ECHO 4. install
 ECHO 5. open command line here
+ECHO 6. generate documentation
 ECHO.
 
-CHOICE /C 12345 /N /M "select"
+CHOICE /C 123456 /N /M "select"
 set task=%ERRORLEVEL%
 :: Don't add any space in task=
+IF %task% == 5 GOTO doc
 IF %task% == 5 GOTO cmd
 IF %task% == 4 GOTO install
 IF %task% == 3 GOTO babel
@@ -68,6 +70,11 @@ GOTO End
 ECHO open cmd here..
 cmd "%~p1"
 GOTO End
+
+:doc
+call npm run doc
+GOTO End
+
 
 :End
 pause
