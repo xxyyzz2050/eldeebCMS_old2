@@ -1,29 +1,104 @@
 import { Injectable } from "@angular/core";
+import $eldeeb from "../eldeeb";
+import $db from "../eldeeb/db";
+import $files from "../eldeeb/files";
+import articleSchema from "../schema/article";
 
-namespace types {
-  export type schema = {
-    type: "article" | "category" | "index";
+//todo: merge with namespace types (from eldeeb lib)
+namespace types2 {
+  export type urlParts = {
+    type: string; //todo: type: "article" | "category" | "index";
     id?: number;
   };
-  export type data = { title: string; content: string }; //todo: import article from schema
+  export type data = { title: string; content: string }; //todo: use articleSchema
 }
 
 @Injectable({
   providedIn: "root"
 })
 //don't put any code (including ';')  between @Injectable() and the class
+
+/**
+ * receives acticle's url and returns the content.
+ */
 export class GetArticlesService {
-  getData(url: string) {
-    return this.fetchData(this.parseURL(url));
+  private parts: types2.urlParts;
+
+  /**
+   * getData from cache or fetch from the remote server via .fetchData()
+   * @method getData
+   * @param  url:PathLike url of the article
+   * @return [description]
+   */
+  getData(url: types.files.PathLike): types2.data | types2.data[] {
+    this.parts = this.parseURL(url);
+    return $files().cache(
+      `./articles/${this.parts.type}/${this.parts.id}.json`,
+      async () => this.fetchData(this.parts)
+    );
   }
 
-  parseURL(url: string): types.schema {
-    return { type: "article", id: 1 };
+  /**
+   * parseURL to map object type [article|category] & id
+   *  url= /<type>-<objectId> or /<shortId>
+   * @method parseURL
+   * @param  url:PathLike
+   * @return urlParts{type,id}
+   */
+  private parseURL(url: types.files.PathLike): types2.urlParts {
+    url = url.toString();
+    let type: string,
+      id: number,
+      part = url.substring(url.lastIndexOf("/") + 1);
+
+    if (part.match(/(.*)-[0-9a-fA-F]{24}/)) {
+      let tmp = part.split("-"); //[string,string]
+      if (typeof tmp[1] == "undefined") [type, id] = ["index", 0];
+      else [type, id] = [tmp[0], +tmp[1]]; //+tmp[1] to convert to number
+    } else [type, id] = ["index", 0];
+
+    return { type, id };
   }
 
-  fetchData(schema: types.schema): types.data | types.data[] {
-    //use files.cache() to fetch cached data or cache new data
+  //todo: fetchData():types.promise<types2.data> | types.promise<types2.data[]> {}
+  private async fetchData(urlParts: types2.urlParts) {
+    //todo: use eldeeb/db to download the data
     let data = { title: "article title", content: "article content" };
     return data;
   }
 }
+
+/*
+return eldeeb.data().cache(
+  `${type}/${id}.json`, //`${type}/${id == 0 ? 'index' : id}.json`,
+  async () => {
+     let db=new $db();
+    return {
+      type,
+      data: await db.connect().then(db => {
+        eldeeb.log(db, "updating data..");
+        if (type == "article") {
+          let { model } = db.model("tmp_articles", articleSchema[0]);
+          return (
+            model
+              //.findOne({ shortId: shortId })
+              .findById(id)
+              .lean()
+              .exec()
+          );
+        } else {
+          //nx: this function replaces ./articles_index.js
+          let { model } = db.model("tmp_articles_index", indexSchema[0]);
+          return model
+            .find() //nx: {category:id}
+            .lean()
+            .limit(5)
+            .exec();
+        }
+      })
+    };
+  },
+  3,
+  "json"
+);
+ */
