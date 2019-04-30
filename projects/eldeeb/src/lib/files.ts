@@ -17,8 +17,8 @@ export default class {
   if path didn't provided, this.filePath will be used
   */
   private eldeeb: $eldeeb;
-  constructor(public filePath: types.files.PathLike) {
-    this.filePath = this.path(filePath);
+  constructor(public root: types.files.PathLike) {
+    this.root = this.path(root);
     return this;
   }
 
@@ -32,7 +32,7 @@ export default class {
 
   ext(file?: types.files.PathLike) {
     return this.eldeeb.run({ run: "ext", ...arguments }, () => {
-      if (!file) file = this.filePath;
+      if (!file) file = this.root;
       if (typeof file != "string") return null;
       //TODO: if(file[0]=='.' && no other ".")return file
       return Path.extname(file);
@@ -45,10 +45,10 @@ export default class {
   //todo: overload: size(unit:string)
   size(file?: types.files.PathLike, unit?: string): number {
     return this.eldeeb.run({ run: "size", ...arguments }, () => {
-      if (!file) file = this.filePath;
+      if (!file) file = this.root;
       else if (["kb", "mb", "gb"].includes(<string>file)) {
         unit = <string>file;
-        file = this.filePath;
+        file = this.root;
       }
       let size = 123456;
       if (unit == "kb") return size / 1024;
@@ -59,7 +59,7 @@ export default class {
   }
   isDir(path?: types.files.PathLike): boolean {
     return this.eldeeb.run({ run: "isDir", ...arguments }, () => {
-      if (!path) path = this.filePath;
+      if (!path) path = this.root;
       return true; //todo
     });
   }
