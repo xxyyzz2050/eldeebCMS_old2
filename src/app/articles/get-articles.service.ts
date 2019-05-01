@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import $eldeeb from "../eldeeb";
-import $db from "../eldeeb/db";
-import $files from "../eldeeb/files";
+import { Eldeeb } from "eldeeb";
+import db from "$eldeeb/db";
+import files from "$eldeeb/files";
 import articleSchema from "../schema/article";
 
 //todo: merge with namespace types (from eldeeb lib)
@@ -32,7 +32,7 @@ export class GetArticlesService {
    */
   getData(url: types.files.PathLike): types2.data | types2.data[] {
     this.parts = this.parseURL(url);
-    return $files().cache(
+    return files().cache(
       `./articles/${this.parts.type}/${this.parts.id}.json`,
       async () => this.fetchData(this.parts)
     );

@@ -19,7 +19,7 @@ let eldeeb = new $eldeeb({
 
 export default class /*todo: extends mongoose.constructor*/ {
   //mongoose/lib/index.js exports new mongoose(), not the class itself; also mongoose is a Function
- private eldeeb:$eldeeb;
+  private eldeeb: $eldeeb;
   private promise; //todo: promise: eldeeb.promise
   public connection;
   public models;
@@ -45,7 +45,7 @@ export default class /*todo: extends mongoose.constructor*/ {
     return eldeeb.run(["()", options /*,callback*/], () => {
       this.promise = new $promise(
         (resolve, reject) => {
-          let err =  $error(100),
+          let err = $error(100),
             defaultOptions = {
               useCreateIndex: true,
               //useNewUrlParser: true, //https://mongoosejs.com/docs/deprecations.html; now it gives "MongoError: authentication fail"
@@ -149,7 +149,7 @@ export default class /*todo: extends mongoose.constructor*/ {
           options = eldeeb.merge(defaultOptions, options);
           //if (eldeeb.options.log)  console.log('connection details:', this.uri, options)
 
-          this.connection  = mongoose.createConnection(this.uri, options); //todo: convert to eldeeb.promise
+          this.connection = mongoose.createConnection(this.uri, options); //todo: convert to eldeeb.promise
           if (!this.connection)
             reject({
               ...err,
@@ -264,7 +264,9 @@ export default class /*todo: extends mongoose.constructor*/ {
 
         if ("times" in obj && obj.times !== false) {
           if (eldeeb.objectType(obj.times) !== "array")
-            (<[types.dbMongoDB.timeStamp, types.dbMongoDB.timeStamp]>obj.times) = [
+            (<[types.dbMongoDB.timeStamp, types.dbMongoDB.timeStamp]>(
+              obj.times
+            )) = [
               <types.dbMongoDB.timeStamp>obj.times,
               <types.dbMongoDB.timeStamp>obj.times
             ];
@@ -333,7 +335,8 @@ export default class /*todo: extends mongoose.constructor*/ {
     //todo: field: anotherSchema ??
     if (!this.connection) return { model: null, schema: null };
     return eldeeb.run(["model", schema, options], () => {
-      if (typeof schema == "string") schema = require(schema) || {}; //todo: dynamic import -> see index/json()
+      if (typeof schema == "string") schema = require(schema) || {};
+      //todo: dynamic import -> see index/json()
       else if (schema == null || typeof schema == "undefined") {
         schema = require(`${this.models}/${coll}.${this.ext}`) || {};
       }
@@ -341,7 +344,11 @@ export default class /*todo: extends mongoose.constructor*/ {
       if (!(schema instanceof mongoose.Schema)) {
         options = options || {};
         if (!("collection" in options)) options["collection"] = coll;
-        schema = this.schema(<types.dbMongoDB.schemaObj>schema, options, indexes);
+        schema = this.schema(
+          <types.dbMongoDB.schemaObj>schema,
+          options,
+          indexes
+        );
       }
 
       return { model: this.connection.model(coll, schema), schema: schema }; //var {model,schema}=db.model(..); or {model:MyModel,schema:mySchema}=db.model(..) then: schema.set(..)

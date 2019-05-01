@@ -3,15 +3,15 @@ connects to db and returns a promise (todo: return an observable)
 todo: copy from src/app/mongo.service.ts
 eldeeb.db(options,db=>{queries},err=>error).then(db=>{queries2})
 */
-import mongoDB from "eldeeb/db-mongoDB";
-import $eldeeb from "./index";
+
+import { dbMongoDB, Eldeeb } from "eldeeb";
 import { generate as shortId } from "shortId";
 import $objectsSchema from "../schema/objects"; //renamed from objectsSchema to $objectsScema because there is another varible with the same name https://stackoverflow.com/a/51103144
 import config from "../eldeeb-config";
 
-let eldeeb = new (<any>$eldeeb)({ mark: "db", log: true });
+let eldeeb = new (<any>Eldeeb)({ mark: "db", log: true }); //todo: change log to false in production mode
 
-export default class _mongoDB extends mongoDB {
+class _mongoDB extends dbMongoDB {
   constructor() {
     super();
     console.log("*** eldeeb/db loaded ***");
@@ -81,10 +81,16 @@ export default class _mongoDB extends mongoDB {
   }
 }
 
-/*export default function db(
-  options?: dbMongoDB.connectionOptions,
-  done?: promise.NEXT,
-  fail?: promise.NEXT,
-  events?: any):Promise<any>{
-     return new _mongoDB().connect(options,done,fail,events) //returns a promise, not _mongoDB
-}*/
+export default function(
+  options?: types.dbMongoDB.connectionOptions,
+  done?: types.promise.NEXT,
+  fail?: types.promise.NEXT,
+  events?: any
+): Promise<any> {
+  return new _mongoDB().connect(
+    options,
+    done,
+    fail,
+    events
+  ); //returns a promise, not _mongoDB
+}

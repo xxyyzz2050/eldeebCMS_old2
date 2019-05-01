@@ -1,6 +1,6 @@
-import $files from "eldeeb/files";
+import { Files } from "eldeeb";
 
-class _files extends $files {
+class _files extends Files {
   constructor(root?: types.files.PathLike) {
     super(root || ""); //nx: provide the root path of the project;  nx:test if root is the path of this file or the parent file (i.e lib/data.js)
   }
