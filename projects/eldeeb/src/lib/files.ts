@@ -1,6 +1,6 @@
 //todo: create fileSync
 
-import $eldeeb from "./index.js";
+import $eldeeb from "./index";
 import fs from "fs";
 import Path from "path";
 
@@ -24,14 +24,14 @@ export default class {
 
   //resolve the path to be absolute and normalize it to guarantee that the path seperator type of the operating system will be used consistently (e.g. this will turn C:\directory/test into C:\directory\test (when being on Windows)
   path(...paths: types.files.PathLike[]): string {
-    return this.eldeeb.run({ run: "", ...arguments }, () => {
+    return eldeeb.run({ run: "", ...arguments }, () => {
       let stringPaths = paths.map(el => el.toString());
       return Path.resolve(Path.normalize(Path.join(...stringPaths))); //if it null it will be the current working dir (of the working script)
     });
   }
 
   ext(file?: types.files.PathLike) {
-    return this.eldeeb.run({ run: "ext", ...arguments }, () => {
+    return eldeeb.run({ run: "ext", ...arguments }, () => {
       if (!file) file = this.root;
       if (typeof file != "string") return null;
       //TODO: if(file[0]=='.' && no other ".")return file
@@ -44,7 +44,7 @@ export default class {
   //file size in bytes
   //todo: overload: size(unit:string)
   size(file?: types.files.PathLike, unit?: string): number {
-    return this.eldeeb.run({ run: "size", ...arguments }, () => {
+    return eldeeb.run({ run: "size", ...arguments }, () => {
       if (!file) file = this.root;
       else if (["kb", "mb", "gb"].includes(<string>file)) {
         unit = <string>file;
@@ -58,7 +58,7 @@ export default class {
     });
   }
   isDir(path?: types.files.PathLike): boolean {
-    return this.eldeeb.run({ run: "isDir", ...arguments }, () => {
+    return eldeeb.run({ run: "isDir", ...arguments }, () => {
       if (!path) path = this.root;
       return true; //todo
     });
@@ -70,7 +70,7 @@ export default class {
     newPath: types.files.PathLike,
     options?: types.files.moveOptions
   ): {} {
-    return this.eldeeb.run({ run: "move", ...arguments }, () => {
+    return eldeeb.run({ run: "move", ...arguments }, () => {
       //let destination = this.isDir(path) ? newPath : Path.dirname(newPath); //todo: ??
       fs.renameSync(path, newPath); //todo: when removing URL from path types, error solved i.e: move(path:string|Buffer,..), why?
       /*TODO:
@@ -84,7 +84,7 @@ export default class {
   //todo: move to ./files.ts
   mtime(file: types.files.PathLike): number | bigint {
     //modified time of a file in MS
-    return this.eldeeb.run({ run: "", ...arguments }, () => {
+    return eldeeb.run({ run: "", ...arguments }, () => {
       return fs.statSync(file).mtimeMs;
     });
   }

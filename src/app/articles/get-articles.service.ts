@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { Eldeeb } from "eldeeb";
 import db from "$eldeeb/db";
 import files from "$eldeeb/files";
 import articleSchema from "../schema/article";
@@ -10,7 +9,12 @@ namespace types2 {
     type: string; //todo: type: "article" | "category" | "index";
     id?: number;
   };
-  export type data = { title: string; content: string }; //todo: use articleSchema
+  interface articleSchema {
+    //todo: use the imported articleSchema
+    title: string;
+    content: string;
+  }
+  export type data = articleSchema | articleSchema[];
 }
 
 @Injectable({
@@ -21,7 +25,7 @@ namespace types2 {
 /**
  * receives acticle's url and returns the content.
  */
-export class GetArticlesService {
+class GetArticlesService {
   private parts: types2.urlParts;
 
   /**
@@ -30,8 +34,9 @@ export class GetArticlesService {
    * @param  url:PathLike url of the article
    * @return [description]
    */
-  getData(url: types.files.PathLike): types2.data | types2.data[] {
+  async getData(url: types.files.PathLike) {
     this.parts = this.parseURL(url);
+    //  return { title: "test", content: "=====ok======" };
     return files().cache(
       `./articles/${this.parts.type}/${this.parts.id}.json`,
       async () => this.fetchData(this.parts)
@@ -61,13 +66,15 @@ export class GetArticlesService {
   }
 
   //todo: fetchData():types.promise<types2.data> | types.promise<types2.data[]> {}
-  private async fetchData(urlParts: types2.urlParts) {
+  private async fetchData(urlParts: types2.urlParts): Promise<types2.data> {
     //todo: use eldeeb/db to download the data
     let data = { title: "article title", content: "article content" };
-    return data;
+    return new Promise(r => r(data));
   }
 }
-
+export default function(url: types.files.PathLike) {
+  return new GetArticlesService().getData(url);
+}
 /*
 return eldeeb.data().cache(
   `${type}/${id}.json`, //`${type}/${id == 0 ? 'index' : id}.json`,

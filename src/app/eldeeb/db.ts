@@ -11,7 +11,7 @@ import config from "../eldeeb-config";
 
 let eldeeb = new (<any>Eldeeb)({ mark: "db", log: true }); //todo: change log to false in production mode
 
-class _mongoDB extends dbMongoDB {
+export class DB extends dbMongoDB {
   constructor() {
     super();
     console.log("*** eldeeb/db loaded ***");
@@ -87,7 +87,7 @@ export default function(
   fail?: types.promise.NEXT,
   events?: any
 ): Promise<any> {
-  return new _mongoDB().connect(
+  return new DB().connect(
     options,
     done,
     fail,
