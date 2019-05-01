@@ -8,9 +8,13 @@ import { Router } from "@angular/router";
   styleUrls: ["./article.component.scss"]
 })
 export class ArticleComponent implements OnInit {
+  private data; //todo: data:Promise<articleSchema>
   constructor(private router: Router) {}
 
   ngOnInit() {
-    getArticle(this.router.url).then(data => console.log(data)); //todo: use observable
+    this.data = getArticle(this.router.url).then(data => {
+      console.log(data);
+      return data;
+    });
   }
 }

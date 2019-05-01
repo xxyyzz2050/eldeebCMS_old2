@@ -17,7 +17,7 @@ ECHO.
 CHOICE /C 123456 /N /M "select"
 set task=%ERRORLEVEL%
 :: Don't add any space in task=
-IF %task% == 5 GOTO doc
+IF %task% == 6 GOTO doc
 IF %task% == 5 GOTO cmd
 IF %task% == 4 GOTO install
 IF %task% == 3 GOTO babel

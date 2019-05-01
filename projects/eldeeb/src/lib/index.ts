@@ -51,6 +51,7 @@ todo: what is the usage of this function?
   }*/
 
   run(mark?: any, fn?: () => any, isPromise?: boolean): any {
+    //todo: to make this method async, it's return type must be changed to Promise<any>
     //nx: create function overloads
     //always use arrow function to keep "this" referce to the original function context (not "run()" context)
     //nx: mark="eldeeb:"+this.run.caller (not allowed in strict mode), https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments/callee
@@ -98,6 +99,7 @@ todo: what is the usage of this function?
         this.err(e, mark, fn);
       }
     } else {
+      //todo: don't create a new promise, the function body is responible of creating the promise i.e ()=>{new Promise(...)}
       let promise = new Promise(fn); //fn must resolve the promise, fn(resolve,reject){if(finished)resolve(value)}
       if (mark && this.options.log)
         console.log("promise: eldeeb:", mark, promise /*, fn*/);

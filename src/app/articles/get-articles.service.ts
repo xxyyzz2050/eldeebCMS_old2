@@ -36,9 +36,9 @@ class GetArticlesService {
    */
   async getData(url: types.files.PathLike) {
     this.parts = this.parseURL(url);
-    //  return { title: "test", content: "=====ok======" };
+    //return this.fetchData(this.parts);
     return files().cache(
-      `./articles/${this.parts.type}/${this.parts.id}.json`,
+      `articles/${this.parts.type}/${this.parts.id}.json`,
       async () => this.fetchData(this.parts)
     );
   }

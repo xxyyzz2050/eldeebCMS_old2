@@ -5,7 +5,8 @@ import fs from "fs";
 import Path from "path";
 
 let eldeeb = new $eldeeb({
-  mark: "files"
+  mark: "files",
+  log: true
 });
 
 export default class {
@@ -16,7 +17,6 @@ export default class {
   i.e new file(path).size() -> new file().size(path)
   if path didn't provided, this.filePath will be used
   */
-  private eldeeb: $eldeeb;
   constructor(public root: types.files.PathLike) {
     this.root = this.path(root);
     return this;
@@ -171,38 +171,40 @@ export default class {
     expire?: number, //in hours
     type?: string,
     allowEmpty?: boolean
-  ) {
+  ): Promise<any> {
     /*  returns a promise (because some operations executed in async mode) , use await or .then()
          allowEmpty: allow creating an empty cache file
          expire (hours)
      */
-    return eldeeb.run({ run: "cache", ...arguments }, async () => {
-      let now = eldeeb.now();
-      file = this.path(file);
-      this.mkdir(Path.dirname(file));
-      expire *= 60 * 60 * 1000; //ms
+    return eldeeb.run({ run: "cache", ...arguments }, () => {
+      return new Promise(async resolve => {
+        let now = eldeeb.now();
+        file = this.path(file);
+        this.mkdir(Path.dirname(file));
+        expire *= 60 * 60 * 1000; //ms
 
-      if (
-        !fs.existsSync(file) ||
-        (!isNaN(expire) &&
-          (expire < 0 || <number>this.mtime(file) + expire < now)) //todo: convert this.mimetime() to number or convert expire to bigInt??
-      ) {
-        //save data to file, and return the original data
-        eldeeb.log(`cache: ${file} updated`);
-        if (typeof data == "function") data = await data(); //data() may be async or a Promise
-        let dataType = eldeeb.objectType(data);
-        if (dataType == "array" || dataType == "object")
-          fs.writeFileSync(file, JSON.stringify(data));
-        else if (allowEmpty || !eldeeb.isEmpty(data))
-          fs.writeFileSync(file, data);
-        //todo: do we need to convert data to string? i.e: writeFileSync(file.toString()), try some different types of data
-      } else {
-        //retrive data from file and return it as the required type
-        data = fs.readFileSync(file, "utf8"); //without encoding (i.e utf-8) will return a stream insteadof a string
-        if (type == "json") return JSON.parse(data);
-        //todo: elseif(type=="number") elseif ...
-      }
-      return data;
+        if (
+          !fs.existsSync(file) ||
+          (!isNaN(expire) &&
+            (expire < 0 || <number>this.mtime(file) + expire < now)) //todo: convert this.mimetime() to number or convert expire to bigInt??
+        ) {
+          //save data to file, and return the original data
+          eldeeb.log(`cache: ${file} updated`);
+          if (typeof data == "function") data = await data(); //data() may be async or a Promise
+          let dataType = eldeeb.objectType(data);
+          if (dataType == "array" || dataType == "object")
+            fs.writeFileSync(file, JSON.stringify(data));
+          else if (allowEmpty || !eldeeb.isEmpty(data))
+            fs.writeFileSync(file, data);
+          //todo: do we need to convert data to string? i.e: writeFileSync(file.toString()), try some different types of data
+        } else {
+          //retrive data from file and return it as the required type
+          data = fs.readFileSync(file, "utf8"); //without encoding (i.e utf-8) will return a stream insteadof a string
+          if (type == "json") return JSON.parse(data);
+          //todo: elseif(type=="number") elseif ...
+        }
+        resolve(data);
+      });
     });
   }
 }
