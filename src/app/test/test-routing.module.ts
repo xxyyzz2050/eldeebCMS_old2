@@ -4,6 +4,10 @@ import { IndexComponent } from "./index/index.component";
 
 const routes: Routes = [
   {
+    path: "angular",
+    loadChildren: "./angular-core/angular-core.module#AngularCoreModule"
+  },
+  {
     path: "material",
     loadChildren: "./material/material.module#MaterialModule"
   },
